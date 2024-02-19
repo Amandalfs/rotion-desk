@@ -23,6 +23,8 @@
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.0",
+    "@radix-ui/react-collapsible": "^1.0.3",
+    "@radix-ui/themes": "^2.0.3",
     "@tiptap/extension-document": "^2.2.3",
     "@tiptap/extension-highlight": "^2.2.3",
     "@tiptap/extension-placeholder": "^2.2.3",

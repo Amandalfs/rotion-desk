@@ -1,7 +1,8 @@
-import { Code, TrashSimple } from 'phosphor-react'
+import { CaretDoubleRight, Code, TrashSimple } from 'phosphor-react'
 import clsx from 'clsx'
 
 import * as Breadcrumbs from './Breadcrumbs'
+import * as Collapsible from '@radix-ui/react-collapsible'
 
 type HeaderProps = {
   isSidebarOpen: boolean
@@ -22,14 +23,14 @@ export const Header = ({ isSidebarOpen }: HeaderProps): JSX.Element => {
         }
       )}
     >
-      {/* <Collapsible.Trigger
+      <Collapsible.Trigger
         className={clsx('h-5 w-5 text-rotion-200 hover:text-rotion-50', {
           hidden: isSidebarOpen,
           block: !isSidebarOpen
         })}
       >
         <CaretDoubleRight className="h-4 w-4" />
-      </Collapsible.Trigger> */}
+      </Collapsible.Trigger>
 
       {
         <>
