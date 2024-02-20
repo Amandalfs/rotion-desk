@@ -1,8 +1,7 @@
 import Store from 'electron-store'
 
 interface StoreType {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  documents: Record<string, any>
+  documents: Record<string, Document>
 }
 
 export const store = new Store<StoreType>({
@@ -10,6 +9,3 @@ export const store = new Store<StoreType>({
     documents: {}
   }
 })
-
-console.log(store.path)
-console.log(__dirname)

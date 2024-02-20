@@ -1,13 +1,6 @@
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { FetchAllDocumentsResponse } from '@shared/types/ipc'
-import { IPC } from '@shared/constants/ipc'
-
-export const api = {
-  fetchDocuments(): Promise<FetchAllDocumentsResponse> {
-    return ipcRenderer.invoke(IPC.DOCUMENTS.FETCH_ALL)
-  }
-}
+import { api } from './api'
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
