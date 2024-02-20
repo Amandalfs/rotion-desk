@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { createFileRoute, createURLRoute } from 'electron-router-dom'
+import './ipc'
 
 function createWindow(): void {
   // Create the browser window.
@@ -23,6 +24,7 @@ function createWindow(): void {
       sandbox: false
     }
   })
+
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })

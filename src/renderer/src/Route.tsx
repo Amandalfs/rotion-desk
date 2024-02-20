@@ -1,6 +1,6 @@
 import { Router, Route } from 'electron-router-dom'
 import { Blank } from './pages/blank'
-import { Default } from './pages/layouts/Default'
+import { Default } from './pages/layouts/default'
 
 export function Routes(): JSX.Element {
   return (
