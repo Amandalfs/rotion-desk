@@ -1,5 +1,5 @@
 import { FetchAllDocumentsResponse } from '@shared/types/ipc'
-import { IPC } from '@shared/constants/ipc'
+import { IPC } from '../shared/constants/ipc'
 import {
   FetchDocumentRequest,
   FetchDocumentResponse,

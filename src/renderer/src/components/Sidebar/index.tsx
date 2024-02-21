@@ -52,6 +52,7 @@ export function Sidebar(): JSX.Element {
 
         <Navigation.Root>
           <Navigation.Section>
+            <Navigation.SectionTitle>Workspace</Navigation.SectionTitle>
             {data?.map((document) => {
               return (
                 <Navigation.Link key={document.id} to={`/${document.id}`}>
@@ -59,7 +60,6 @@ export function Sidebar(): JSX.Element {
                 </Navigation.Link>
               )
             })}
-            <Navigation.SectionTitle>Workspace</Navigation.SectionTitle>
             <Navigation.SectionContent>
               <Navigation.Link to="/id">Titulo</Navigation.Link>
             </Navigation.SectionContent>

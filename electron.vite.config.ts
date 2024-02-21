@@ -32,7 +32,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '@renderer': resolve('src/renderer/src'),
-        '@shared': resolve('../shared')
+        '@shared': resolve('src/shared')
       }
     },
     plugins: [tsconfigPaths, react()]

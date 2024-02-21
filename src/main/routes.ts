@@ -5,14 +5,15 @@ import {
   FetchDeleteDocumentRequest,
   FetchDocumentResponse,
   FetchSaveDocumentRequest
-} from '@shared/types/ipc'
+} from '../shared/types/ipc'
 import { ipcMain } from 'electron'
-import { IPC } from '@shared/constants/ipc'
 import { store } from './store'
 import { randomUUID } from 'node:crypto'
+import { IPC } from '../shared/constants/ipc'
 
 ipcMain.handle(IPC.DOCUMENTS.FETCH_ALL, async (): Promise<FetchAllDocumentsResponse> => {
   const document: Document[] = Object.values(store.get('documents'))
+  console.log(document)
   return {
     data: document
   }
@@ -35,7 +36,6 @@ ipcMain.handle(IPC.DOCUMENTS.CREATE, async (): Promise<FetchCreateDocumentRespon
     id,
     title: 'Untitled'
   }
-
   store.set(`documents.${id}`, document)
 
   return {
