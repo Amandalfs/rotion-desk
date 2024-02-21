@@ -5,7 +5,12 @@ import Typography from '@tiptap/extension-typography'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
-export function Editor(): JSX.Element {
+interface EditorProps {
+  title?: string
+  content?: string
+}
+
+export function Editor({ title = '', content = '' }: EditorProps): JSX.Element {
   const editor = useEditor({
     extensions: [
       Document.extend({
@@ -22,7 +27,7 @@ export function Editor(): JSX.Element {
           'before:content-[attr(data-placeholder)] before:text-gray-500 before:h-0 before:float-left before:pointer-events-none'
       })
     ],
-    content: '<h1>Back-End</h1><p>esse é o primeiro documento back-end</p>',
+    content: `<h1>${title}</h1><p>${content}</p>`,
     autofocus: 'end',
     editorProps: {
       attributes: {

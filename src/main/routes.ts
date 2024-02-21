@@ -13,7 +13,6 @@ import { IPC } from '../shared/constants/ipc'
 
 ipcMain.handle(IPC.DOCUMENTS.FETCH_ALL, async (): Promise<FetchAllDocumentsResponse> => {
   const document: Document[] = Object.values(store.get('documents'))
-  console.log(document)
   return {
     data: document
   }
@@ -23,6 +22,7 @@ ipcMain.handle(
   IPC.DOCUMENTS.FETCH,
   async (_, { id }: FetchDeleteDocumentRequest): Promise<FetchDocumentResponse> => {
     const document = store.get(`documents.${id}`) as Document
+    console.log(document)
     return {
       data: document
     }

@@ -16,7 +16,7 @@ export function Document(): JSX.Element {
   })
   return (
     <main className="flex-1 flex items-center justify-center text-rotion-400">
-      <Editor />
+      <Editor content={data?.content} title={data?.title} />
     </main>
   )
 }
