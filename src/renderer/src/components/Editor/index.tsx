@@ -6,11 +6,10 @@ import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
 interface EditorProps {
-  title?: string
   content?: string
 }
 
-export function Editor({ title = '', content = '' }: EditorProps): JSX.Element {
+export function Editor({ content = '' }: EditorProps): JSX.Element {
   const editor = useEditor({
     extensions: [
       Document.extend({
@@ -27,7 +26,7 @@ export function Editor({ title = '', content = '' }: EditorProps): JSX.Element {
           'before:content-[attr(data-placeholder)] before:text-gray-500 before:h-0 before:float-left before:pointer-events-none'
       })
     ],
-    content: `<h1>${title}</h1><p>${content}</p>`,
+    content,
     autofocus: 'end',
     editorProps: {
       attributes: {

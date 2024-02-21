@@ -1,12 +1,13 @@
 import { Editor } from '@renderer/components/Editor'
 import { useQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
 export function Document(): JSX.Element {
   const { id } = useParams()
 
-  const { data } = useQuery({
-    queryKey: ['document'],
+  const { data, isFetching } = useQuery({
+    queryKey: ['document', id],
     queryFn: async () => {
       const response = await window.api.fetchDocument({
         id: id ?? ''
@@ -14,9 +15,16 @@ export function Document(): JSX.Element {
       return response.data
     }
   })
+
+  const initialContent = useMemo(() => {
+    if (data) {
+      return `<h1>${data.title}</h1>${data.content ?? '<p></p>'}`
+    }
+  }, [data])
+
   return (
     <main className="flex-1 flex items-center justify-center text-rotion-400">
-      <Editor content={data?.content} title={data?.title} />
+      {!isFetching && data && <Editor content={initialContent} />}
     </main>
   )
 }
