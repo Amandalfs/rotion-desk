@@ -1,7 +1,7 @@
-import { Editor } from '@renderer/components/Editor'
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
+import { Editor } from '../components/Editor'
 
 export function Document(): JSX.Element {
   const { id } = useParams()

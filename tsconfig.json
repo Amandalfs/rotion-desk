@@ -25,7 +25,8 @@
         "./*"
       ],
       "@*": ["./src/*"],
-      "@shared": ["./src/shared"] 
+      "@renderer": ["./src/renderer/*"],
+      "@shared": ["./src/shared/*"] 
     }
   },
   "include": [

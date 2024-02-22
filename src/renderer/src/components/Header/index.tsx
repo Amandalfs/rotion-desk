@@ -3,13 +3,39 @@ import clsx from 'clsx'
 
 import * as Breadcrumbs from './Breadcrumbs'
 import * as Collapsible from '@radix-ui/react-collapsible'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Document } from '../../../../shared/types/ipc'
 
 type HeaderProps = {
   isSidebarOpen: boolean
 }
 
 export const Header = ({ isSidebarOpen }: HeaderProps): JSX.Element => {
+  const { id } = useParams()
+  const navigate = useNavigate()
   const isMacOS = undefined
+
+  const queryClient = useQueryClient()
+
+  const { mutateAsync: deleteDocument, isPending: isDeleteDocument } = useMutation({
+    mutationFn: async () => {
+      await window.api.deleteDocument({ id: id ?? '' })
+    },
+    onSuccess: async () => {
+      queryClient.setQueriesData(
+        {
+          queryKey: ['documents']
+        },
+        (documents: Document[] | undefined) => {
+          if (documents) {
+            return documents?.filter((document) => document.id !== id)
+          }
+        }
+      )
+      navigate('/')
+    }
+  })
 
   return (
     <div
@@ -48,10 +74,16 @@ export const Header = ({ isSidebarOpen }: HeaderProps): JSX.Element => {
           </Breadcrumbs.Root>
 
           <div className="inline-flex region-no-drag">
-            <button className="inline-flex items-center gap-1 text-rotion-100 text-sm hover:text-rotion-50 disabled:opacity-60">
-              <TrashSimple className="h-4 w-4" />
-              Delete
-            </button>
+            {id && (
+              <button
+                onClick={() => deleteDocument()}
+                disabled={isDeleteDocument}
+                className="inline-flex items-center gap-1 text-rotion-100 text-sm hover:text-rotion-50 disabled:opacity-60"
+              >
+                <TrashSimple className="h-4 w-4" />
+                Delete
+              </button>
+            )}
           </div>
         </>
       }
