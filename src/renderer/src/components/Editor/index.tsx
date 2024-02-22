@@ -5,11 +5,19 @@ import Typography from '@tiptap/extension-typography'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
-interface EditorProps {
-  content?: string
+import { Document as DocumentType } from '@shared/types/ipc'
+
+export type OnContentUpdateParams = {
+  title: DocumentType['title']
+  content: DocumentType['content']
 }
 
-export function Editor({ content = '' }: EditorProps): JSX.Element {
+interface EditorProps {
+  content?: string
+  onContentUpdate: (params: OnContentUpdateParams) => void
+}
+
+export function Editor({ content = '', onContentUpdate }: EditorProps): JSX.Element {
   const editor = useEditor({
     extensions: [
       Document.extend({
@@ -32,6 +40,15 @@ export function Editor({ content = '' }: EditorProps): JSX.Element {
       attributes: {
         class: 'focus:outline-none prose prose-invert prose-heading:nt-0'
       }
+    },
+    onUpdate: ({ editor }) => {
+      const contentRegex = /(<h1>(?<title>.+)<\/h1>(?<content>.+)?)/
+      const parsedContent = editor.getHTML().match(contentRegex)?.groups
+
+      const title = parsedContent?.title ?? 'Untitled'
+      const content = parsedContent?.content ?? ''
+
+      onContentUpdate({ title, content })
     }
   })
 
