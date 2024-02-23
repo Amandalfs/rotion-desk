@@ -1,10 +1,12 @@
 import { app, shell, BrowserWindow } from 'electron'
-import { join } from 'path'
+import path, { join } from 'node:path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+import icon from '../../resources/icon.png'
 import { createFileRoute, createURLRoute } from 'electron-router-dom'
 import './routes'
 import './store'
+import './tray'
+import { createTray } from './tray'
 
 function createWindow(): void {
   // Create the browser window.
@@ -19,12 +21,14 @@ function createWindow(): void {
       x: 20,
       y: 20
     },
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...(process.platform === 'linux' ? { icon } : { icon }),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
   })
+
+  createTray(mainWindow)
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -45,6 +49,13 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(...fileRoute)
   }
+}
+
+if (process.platform === 'darwin') {
+  app.dock.setIcon(path.resolve(__dirname, '../../resources/icon.png'))
+}
+if (process.platform === 'win32') {
+  app.getFileIcon(path.resolve(__dirname, '../../resources/icon.png'))
 }
 
 // This method will be called when Electron has finished

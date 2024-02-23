@@ -28,5 +28,12 @@ export const api = {
 
   deleteDocument(req: FetchDeleteDocumentRequest): Promise<void> {
     return ipcRenderer.invoke(IPC.DOCUMENTS.DELETE, req)
+  },
+
+  onNewDocumentRequest(callback: () => void): () => void {
+    ipcRenderer.on('new-document', callback)
+    return () => {
+      ipcRenderer.off('new-document', callback)
+    }
   }
 }
