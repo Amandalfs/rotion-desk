@@ -20,6 +20,8 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
+      - name: install depences
+        run: npm install
 
       - name: apt-update
         if: startsWith(matrix.os, 'ubuntu-latest')
