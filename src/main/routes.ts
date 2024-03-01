@@ -12,9 +12,10 @@ import { randomUUID } from 'node:crypto'
 import { IPC } from '../shared/constants/ipc'
 
 ipcMain.handle(IPC.DOCUMENTS.FETCH_ALL, async (): Promise<FetchAllDocumentsResponse> => {
-  const document: Document[] = Object.values(store.get('documents'))
+  const objects = store.get<string, Document>('documents')
+  const documents = Object.values(objects)
   return {
-    data: document
+    data: documents
   }
 })
 

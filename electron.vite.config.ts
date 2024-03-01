@@ -10,7 +10,7 @@ const tsconfigPaths = tsconfigPathPlugIn({
 
 export default defineConfig({
   main: {
-    publicDir: path.resolve(__dirname, 'resources'),
+    publicDir: 'resources',
     plugins: [tsconfigPaths, externalizeDepsPlugin()]
   },
   preload: {

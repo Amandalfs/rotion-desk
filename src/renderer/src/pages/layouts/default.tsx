@@ -1,8 +1,8 @@
-import { Header } from '@renderer/components/Header'
-import { Sidebar } from '@renderer/components/Sidebar'
 import { Outlet } from 'react-router-dom'
 import * as Collapsible from '@radix-ui/react-collapsible'
 import { useState } from 'react'
+import { Sidebar } from './../../components/Sidebar/index'
+import { Header } from './../../components/Header/index'
 
 export function Default(): JSX.Element {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true)
