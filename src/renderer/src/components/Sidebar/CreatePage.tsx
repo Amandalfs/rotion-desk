@@ -40,6 +40,17 @@ export const CreatePage = (): JSX.Element => {
     }
   }, [createDocument])
 
+  useEffect(() => {
+    function onLoadDocument(_, { id }: { id: string }): void {
+      navigate(`/document/${id}`)
+    }
+    const unsubscribe = window.api.onLoadDocumentRequest(onLoadDocument)
+
+    return () => {
+      unsubscribe()
+    }
+  }, [navigate])
+
   return (
     <button
       onClick={() => {

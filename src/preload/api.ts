@@ -32,8 +32,17 @@ export const api = {
 
   onNewDocumentRequest(callback: () => void): () => void {
     ipcRenderer.on('new-document', callback)
+
     return () => {
       ipcRenderer.off('new-document', callback)
+    }
+  },
+
+  onLoadDocumentRequest(callback: (_, params: { id: string }) => void): () => void {
+    ipcRenderer.on('load-document', callback)
+
+    return () => {
+      ipcRenderer.off('load-document', callback)
     }
   }
 }

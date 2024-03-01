@@ -1,5 +1,6 @@
 import { BrowserWindow, Menu, Tray } from 'electron'
 import path from 'path'
+import { listDocuments } from './routes'
 
 export function createTray(window: BrowserWindow): void {
   const tray = new Tray(path.resolve(__dirname, '../../resources/rotionTemplate.png'))
@@ -10,15 +11,20 @@ export function createTray(window: BrowserWindow): void {
     {
       label: 'Criar novo documento',
       click: (): void => {
-        window.webContents.send('new-document')
+        window.webContents.send('new-document', { 'hello world': '' })
       },
       accelerator: 'CommandOrControl+1'
     },
     { type: 'separator' },
-    { label: 'documentos recentes', enabled: false },
-    { label: 'documento backennd', click: (): void => {} },
-    { label: 'documento fronend', click: (): void => {} },
-    { label: 'documento java', click: (): void => {} },
+    {
+      label: 'documentos recentes',
+      submenu: listDocuments.map(({ title, id }) => ({
+        label: title,
+        click: (): void => {
+          window.webContents.send('load-document', { id })
+        }
+      }))
+    },
     { type: 'separator' },
     { label: 'Sair', role: 'quit' }
   ])

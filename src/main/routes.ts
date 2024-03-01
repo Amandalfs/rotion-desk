@@ -23,7 +23,8 @@ ipcMain.handle(
   IPC.DOCUMENTS.FETCH,
   async (_, { id }: FetchDeleteDocumentRequest): Promise<FetchDocumentResponse> => {
     const document = store.get(`documents.${id}`) as Document
-    console.log(document)
+    updateRecentsDocument(document)
+    recentDocumentsList()
     return {
       data: document
     }
@@ -38,11 +39,16 @@ ipcMain.handle(IPC.DOCUMENTS.CREATE, async (): Promise<FetchCreateDocumentRespon
     title: 'Untitled'
   }
   store.set(`documents.${id}`, document)
-
+  store.set(`recentsDocuments`, {
+    ...document
+  })
+  updateRecentsDocument(document)
+  recentDocumentsList()
   return {
     data: document
   }
 })
+
 ipcMain.handle(
   IPC.DOCUMENTS.SAVE,
   async (_, { id, title, content }: FetchSaveDocumentRequest): Promise<void> => {
@@ -51,6 +57,8 @@ ipcMain.handle(
       title,
       content
     })
+    updateRecentsDocument({ id, title, content })
+    recentDocumentsList()
   }
 )
 
@@ -61,3 +69,21 @@ ipcMain.handle(
     store.delete(`documents.${id}`)
   }
 )
+
+function updateRecentsDocument({ id, title, content }: Document): void {
+  store.set(`recentsDocuments.${id}`, {
+    id,
+    title,
+    content
+  })
+}
+const initObjects = store.get<string, Document>('recentsDocuments')
+const initDocuments = Object.values(initObjects)
+
+export let listDocuments: any = initDocuments
+
+export function recentDocumentsList(): void {
+  const objects = store.get<string, Document>('recentsDocuments')
+  const documents = Object.values(objects)
+  listDocuments = documents.slice(0, 5)
+}
