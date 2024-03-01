@@ -1,6 +1,6 @@
 # rotion-app
 
-An Electron application with React and TypeScript
+Rotion App
 
 ## Recommended IDE Setup
 
@@ -32,3 +32,6 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
+
+# Versões Executaveis.
+[Releases](https://github.com/Amandalfs/rotion-desk/releases)
