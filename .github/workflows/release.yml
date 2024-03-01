@@ -19,6 +19,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm'
+      - name: install nodeJs
+        run: npm ci
 
       - name: apt-update
         if: startsWith(matrix.os, 'ubuntu-latest')
