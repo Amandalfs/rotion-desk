@@ -16,8 +16,7 @@ jobs:
         uses: saadmk11/changelog-ci@v1.1.2
         with:
           changelog_filename: CHANGELOG.md
-          config_file: changelog-ci-config.json
           committer_username: 'test'
           committer_email: 'test@test.com'
           release_version: '0.0.16'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.github_token }}
