@@ -1,0 +1,25 @@
+name: Generate Changelog
+on:
+  release:
+    types: [published]
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate Changelog
+        id: generate-changelog
+        run: |
+          echo "Changelog:" > changelog.md
+          git log --pretty=format:"%h - %s (%an)" $(git describe --tags --abbrev=0)..HEAD >> changelog.md
+
+      - name: Commit Changelog
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add changelog.md
+          git commit -m "Update changelog [skip ci]"
+          git push
