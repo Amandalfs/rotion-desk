@@ -5,9 +5,10 @@ import {
   FetchDocumentResponse,
   FetchCreateDocumentResponse,
   FetchSaveDocumentRequest,
-  FetchDeleteDocumentRequest
+  FetchDeleteDocumentRequest,
+  FetchStateAppLastResponse
 } from '../shared/types/ipc'
-import { ipcRenderer } from 'electron'
+import { Event, ipcRenderer } from 'electron'
 
 export const api = {
   fetchDocuments(): Promise<FetchAllDocumentsResponse> {
@@ -38,11 +39,15 @@ export const api = {
     }
   },
 
-  onLoadDocumentRequest(callback: (_, params: { id: string }) => void): () => void {
+  onLoadDocumentRequest(callback: (_: Event, params: { id: string }) => void): () => void {
     ipcRenderer.on('load-document', callback)
 
     return () => {
       ipcRenderer.off('load-document', callback)
     }
+  },
+
+  fetchGetStateAppLast(): Promise<FetchStateAppLastResponse> {
+    return ipcRenderer.invoke(IPC.StateAppLast.GET)
   }
 }

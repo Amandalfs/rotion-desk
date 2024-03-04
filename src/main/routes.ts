@@ -5,7 +5,8 @@ import {
   FetchCreateDocumentResponse,
   FetchDeleteDocumentRequest,
   FetchDocumentResponse,
-  FetchSaveDocumentRequest
+  FetchSaveDocumentRequest,
+  FetchStateAppLastResponse
 } from '../shared/types/ipc'
 import { ipcMain } from 'electron'
 import { store } from './store'
@@ -36,6 +37,10 @@ ipcMain.handle(
     const document = store.get(`documents.${id}`) as Document
     updateRecentsDocument(document)
     recentDocumentsList()
+    store.set(`stateAppLast`, {
+      type: 'document',
+      id
+    })
     return {
       data: document
     }
@@ -100,3 +105,8 @@ export function recentDocumentsList(): void {
   listDocuments = sortedDocuments.slice(0, 5)
   eventEmitter.emit('update-recent-documents', (): void => {})
 }
+
+ipcMain.handle(IPC.StateAppLast.GET, async (): Promise<FetchStateAppLastResponse> => {
+  const stateApp = store.get('stateAppLast')
+  return { data: stateApp }
+})

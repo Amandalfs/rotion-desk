@@ -5,5 +5,8 @@ export const IPC = {
     CREATE: 'documents-create',
     SAVE: 'documents-save',
     DELETE: 'documents-delete'
+  },
+  StateAppLast: {
+    GET: 'state-app-last-get'
   }
 }

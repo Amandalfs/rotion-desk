@@ -66,7 +66,6 @@ export function createTray(window: BrowserWindow): {
   }
 
   eventEmitter.on('update-recent-documents', () => {
-    console.log('evenv')
     updateMenuRecentsDocuments()
   })
 

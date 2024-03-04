@@ -41,3 +41,7 @@ export interface FetchDocumentResponse {
 export interface FetchCreateDocumentResponse {
   data: Document
 }
+
+export interface FetchStateAppLastResponse {
+  data: StateAppLast
+}
