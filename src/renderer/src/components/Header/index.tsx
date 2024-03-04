@@ -71,14 +71,14 @@ export const Header = ({ isSidebarOpen }: HeaderProps): JSX.Element => {
       {
         <>
           <Breadcrumbs.Root>
-            {/* <Breadcrumbs.Item>
+            <Breadcrumbs.Item>
               <Code weight="bold" className="h-4 w-4 text-pink-500" />
               Estrutura técnica
             </Breadcrumbs.Item>
             <Breadcrumbs.Separator />
             <Breadcrumbs.HiddenItems />
             <Breadcrumbs.Separator />
-            <Breadcrumbs.Item>Back-end</Breadcrumbs.Item> */}
+            <Breadcrumbs.Item>Back-end</Breadcrumbs.Item>
             <Breadcrumbs.Separator />
             <Breadcrumbs.Item isActive>{documentSelect?.title ?? 'Untitled'}</Breadcrumbs.Item>
           </Breadcrumbs.Root>
