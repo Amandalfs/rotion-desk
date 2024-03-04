@@ -20,3 +20,8 @@ jobs:
           committer_email: 'test@test.com'
           release_version: '0.0.16'
           github_token: ${{ secrets.github_token }}
+      - name: Get Changelog Output
+        run: |
+          echo "${{ steps.changelog-ci.outputs.changelog }}"
+          echo "${{ steps.changelog-ci.outputs.changelog }}" >> $GITHUB_STEP_SUMMARY
+        
