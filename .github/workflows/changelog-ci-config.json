@@ -18,8 +18,12 @@
         "labels": ["improvements", "enhancement"]
       },
       {
+        "title": "Refactor",
+        "labels": ["refactor"]
+      },
+      {
         "title": "New Features",
-        "labels": ["feature"]
+        "labels": ["feature", "feat"]
       },
       {
         "title": "Documentation Updates",
