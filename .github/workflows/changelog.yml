@@ -1,25 +1,29 @@
-name: Generate Changelog
+name: Changelog CI
+
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main 
+      
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Set Release Version'
+        required: true
 
 jobs:
-  generate-changelog:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Generate Changelog
-        id: generate-changelog
-        run: |
-          echo "Changelog:" > changelog.md
-          git log --pretty=format:"%h - %s (%an)" $(git describe --tags --abbrev=0)..HEAD >> changelog.md
-
-      - name: Commit Changelog
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add changelog.md
-          git commit -m "Update changelog [skip ci]"
-          git push
+      - name: Run Changelog CI
+        uses: saadmk11/changelog-ci@v1.1.2
+        with:
+          changelog_filename: CHANGELOG.md
+          config_file: changelog-ci-config.json
+          committer_username: 'test'
+          committer_email: 'test@test.com'
+          release_version: ${{ github.event.inputs.release_version }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
