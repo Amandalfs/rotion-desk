@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Event } from 'electron/main'
 import { Plus } from 'phosphor-react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -41,10 +42,10 @@ export const CreatePage = (): JSX.Element => {
   }, [createDocument])
 
   useEffect(() => {
-    function onLoadDocument(_, { id }: { id: string }): void {
+    function onOpenDocument(_: Event, { id }: { id: string }): void {
       navigate(`/document/${id}`)
     }
-    const unsubscribe = window.api.onLoadDocumentRequest(onLoadDocument)
+    const unsubscribe = window.api.onLoadDocumentRequest(onOpenDocument)
 
     return () => {
       unsubscribe()

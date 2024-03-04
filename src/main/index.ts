@@ -7,6 +7,7 @@ import './routes'
 import './store'
 import './tray'
 import { createTray } from './tray'
+import { eventEmitter } from './eventEmitter'
 
 function createWindow(): void {
   // Create the browser window.
@@ -28,7 +29,11 @@ function createWindow(): void {
     }
   })
 
-  createTray(mainWindow)
+  const { updateMenuRecentsDocuments } = createTray(mainWindow)
+
+  eventEmitter.on('update-recent-documents', () => {
+    updateMenuRecentsDocuments()
+  })
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()

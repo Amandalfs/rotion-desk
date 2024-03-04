@@ -4,6 +4,15 @@ export interface Document {
   content?: string
 }
 
+export interface DocumentRecent extends Document {
+  open_at: Date
+}
+
+export interface StateAppLast {
+  type: string
+  id?: string
+}
+
 /*
  * Request
  */
